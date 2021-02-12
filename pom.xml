@@ -72,9 +72,6 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-migration-support</artifactId>
       <version>5.0.0-M3</version>
-      <name>org.junit.jupiter:junit-jupiter-migration-support</name>
-      <description>Module "junit-jupiter-migration-support" of JUnit 5.</description>
-      <url>http://junit.org/junit5/</url>
     </dependency>
     
 
