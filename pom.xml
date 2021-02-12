@@ -69,7 +69,6 @@
     
     <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-migration-support -->
     <dependency>
-      <modelVersion>4.0.0</modelVersion>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-migration-support</artifactId>
       <version>5.0.0-M3</version>
