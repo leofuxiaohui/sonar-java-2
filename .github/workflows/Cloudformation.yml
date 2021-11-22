@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  InstanceId:
+    Type: String
+    Description: Id of the instance Id to be used which is associated with the provided
+Resources:
+  BayesMarkovServiceRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: BayesMarkovServiceRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - bm.amazonaws.com
+          Action:
+          - 'sts:AssumeRole'
+      Path: /
+  BayesMarkovServiceRoleConnectPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: ConnectPolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - Effect: Allow
+          Action:
+          - 'connect:ListQueues'
+          - 'connect:ListRoutingProfileQueues'
+          - 'connect:ListRoutingProfiles'
+          - 'connect:ListUsers'
+          - 'connect:DescribeUser'
+          - 'connect:GetMetricData'
+          - 'connect:GetCurrentMetricData'
+          - 'connect:DescribeRoutingProfile'
+          - 'connect:DescribeQueue'
+          - 'connect:DescribeInstance'
+          Resource: 
+          - !Sub 'arn:aws:connect:*:*:instance/${InstanceId}/routing-profile/*'
+          - !Sub 'arn:aws:connect:*:*:instance/${InstanceId}/queue/*'
+          - !Sub 'arn:aws:connect:*:*:instance/${InstanceId}/agent/*'
+          - !Sub 'arn:aws:connect:*:*:instance/${InstanceId}'
+      Roles:
+      - !Ref BayesMarkovServiceRole
+  BayesMarkovServiceRoleDirectoryServicePolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: DirectoryServicePolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+        - Effect: Allow
+          Action:
+          - 'ds:DescribeDirectories'
+          Resource: 
+          - '*'
+      Roles:
+      - !Ref BayesMarkovServiceRole
